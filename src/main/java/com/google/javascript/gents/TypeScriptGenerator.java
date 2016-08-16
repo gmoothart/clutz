@@ -213,18 +213,7 @@ public class TypeScriptGenerator {
       return code;
     } finally {
       if (process != null) {
-        // Wait for process to finish
-        try {
-          if (!process.waitFor(5, TimeUnit.SECONDS)) {
-            process.destroyForcibly();
-            throw new RuntimeException("timed out waiting for clang-format to finish");
-          }
-          if (process.exitValue() != 0) {
-            throw new RuntimeException("clang-format failed with exit code " + process.exitValue());
-          }
-        } catch (InterruptedException e) {
-          throw new RuntimeException("unexpected interruption", e);
-        }
+        process.destroy();
       }
     }
   }
