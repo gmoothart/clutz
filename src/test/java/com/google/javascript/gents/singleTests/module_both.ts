@@ -1,7 +1,5 @@
 let num = 4;
-let B = function(): number {
-  return num;
-};
+let B = function(): number { return num; };
 export {B};
 export {num};
 export class foo {

@@ -1,3 +1,1 @@
-export const B = function(): number {
-  return 4;
-};
+export const B = function(): number { return 4;};
