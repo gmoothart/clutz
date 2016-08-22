@@ -27,14 +27,26 @@ public class GentsCodeGenerator extends CodeGenerator {
       add("\n");
     }
 
+    // Pre-codegen modifications go here (i.e. syntax not compatible with jscompiler)
+    switch (n.getType()) {
+      case CAST:
+        add("(");
+        add(n.getFirstChild());
+        add(" as ");
+        add(n.getDeclaredTypeExpression());
+        add(")");
+        break;
+    }
+
     if (maybeOverrideCodeGen(n, ctx)) {
       return;
     }
     super.add(n, ctx);
 
-    // Default field values
+    // Post-codegen modifications go here (i.e. adding to the end of a line)
     switch (n.getType()) {
       case MEMBER_VARIABLE_DEF:
+        // Default field values
         if (n.hasChildren()) {
           add(" = ");
           add(n.getLastChild());
@@ -59,6 +71,9 @@ public class GentsCodeGenerator extends CodeGenerator {
   boolean maybeOverrideCodeGen(Node n, Context ctx) {
     if (n.getType().equals(Token.UNDEFINED_TYPE)) {
       add("undefined");
+      return true;
+    }
+    if (n.getType() == Token.CAST) {
       return true;
     }
     return false;
