@@ -193,7 +193,7 @@ public class TypeScriptGenerator {
       CodeGeneratorFactory factory = new CodeGeneratorFactory() {
         @Override
         public CodeGenerator getCodeGenerator(Format outputFormat, CodeConsumer cc) {
-          return new GentsCodeGenerator(cc, compilerOpts, comments);
+          return new GentsCodeGenerator(cc, compilerOpts, comments, externsMap);
         }
       };
 
